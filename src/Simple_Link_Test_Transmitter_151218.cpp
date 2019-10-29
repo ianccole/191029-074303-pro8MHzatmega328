@@ -33,12 +33,16 @@
 
 uint16_t batch = 65535;
 uint16_t testloop = 0;
-uint8_t lora_TestPower = 10;                      
+int8_t lora_TestPower = 10;                      
 
 #include <SPI.h>
 #include "Settings.h"                          //program test settings here
 #include "LoRa5.h"                             //LoRa library routines     
 
+void init_LoRaTest1();
+void Send_Test1Mode_Packet();
+void lora_Custom1();
+void Send_Test_Packet(char lmode);
 
 void loop()
 {
@@ -66,8 +70,9 @@ void loop()
   Serial.println();
   for (lora_TestPower = start_power; lora_TestPower >= end_power; lora_TestPower--)
   {
-    Serial.print(lora_TestPower);
-    Serial.print("dBm ");
+    char strBuf[10];
+    sprintf(strBuf, "%02d dBm ", lora_TestPower);
+    Serial.print(strBuf);
 
     lora_Custom1();
     Serial.print("Test Packet ");
